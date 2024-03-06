@@ -13,8 +13,14 @@
         android:theme="@style/Theme.ADEGO"
         tools:targetApi="31">
         <activity
+            android:name=".profile.ProfileImageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".profile.ProfileNameActivity"
+            android:exported="false" />
+        <activity
             android:name=".SplashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
