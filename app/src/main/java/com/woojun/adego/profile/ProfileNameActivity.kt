@@ -8,6 +8,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import com.woojun.adego.AppPreferences
 import com.woojun.adego.R
 import com.woojun.adego.databinding.ActivityProfileNameBinding
 
@@ -24,17 +25,24 @@ class ProfileNameActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.anim_slide_in_from_left_fade_in, R.anim.anim_fade_out)
         }
 
+        binding.nameInput.setText(AppPreferences.nickname)
+
         binding.nameInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 binding.nameLengthText.text = "사용자 이름 (${binding.nameInput.text.length}/8)"
+                if (binding.nameInput.text.isNotEmpty()) {
+                    binding.nextButton.visibility = View.VISIBLE
+                    binding.noneButton.visibility = View.GONE
+                } else {
+                    binding.nextButton.visibility = View.GONE
+                    binding.noneButton.visibility = View.VISIBLE
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {
-                binding.nextButton.visibility = View.VISIBLE
-                binding.noneButton.visibility = View.GONE
             }
         })
 
@@ -50,9 +58,8 @@ class ProfileNameActivity : AppCompatActivity() {
         }
 
         binding.nextButton.setOnClickListener {
-            val intent = Intent(this@ProfileNameActivity, ProfileImageActivity::class.java).apply {
-                this.putExtra("name", binding.nameInput.text)
-            }
+            AppPreferences.nickname = binding.nameInput.text.toString()
+            val intent = Intent(this@ProfileNameActivity, ProfileImageActivity::class.java)
             startActivity(intent)
         }
     }
