@@ -67,21 +67,27 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(context, "카카오 로그인에 실패하였습니다", Toast.LENGTH_SHORT).show()
             }
             else if (user?.id != null) {
-                kakaoSignUp(user.id.toString(), user.kakaoAccount!!.profile!!.nickname!!, user.kakaoAccount!!.profile!!.thumbnailImageUrl!!)
+                kakaoSignUp(context, user.id.toString(), user.kakaoAccount!!.profile!!.nickname!!, user.kakaoAccount!!.profile!!.thumbnailImageUrl!!)
             }
         }
     }
 
-    private fun kakaoSignUp(userId: String, userNickname: String, userProfileImage: String) {
+    private fun kakaoSignUp(context: Context, userId: String, userNickname: String, userProfileImage: String) {
         AppPreferences.id = userId
         AppPreferences.nickname = userNickname
         AppPreferences.profileImage = userProfileImage
 
-        database.child("users").child(userId).get().addOnSuccessListener {
-            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-        }.addOnFailureListener{
-            startActivity(Intent(this@LoginActivity, ProfileNameActivity::class.java))
+        database.child("users").child(userId).get().addOnSuccessListener { dataSnapshot ->
+            if (dataSnapshot.exists()) {
+                AppPreferences.isSignIn = true
+                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+            } else {
+                startActivity(Intent(this@LoginActivity, ProfileNameActivity::class.java))
+            }
+        }.addOnFailureListener {
+            Toast.makeText(context, "카카오 로그인에 실패하였습니다", Toast.LENGTH_SHORT).show()
         }
+
     }
 
 }
