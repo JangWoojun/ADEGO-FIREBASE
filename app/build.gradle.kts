@@ -25,8 +25,8 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        buildConfigField("String", "NATIVE_APP_KEY", "\"$NATIVE_APP_KEY\"")
-        resValue("string", "NATIVE_APP_KEY", NATIVE_APP_KEY)
+        buildConfigField("String", "KAKAO_NATIVE_KEY", "\"$KAKAO_NATIVE_KEY\"")
+        resValue("string", "KAKAO_NATIVE_KEY", KAKAO_NATIVE_KEY)
 
         buildConfigField("String", "MANIFESTS_KAKAO_NATIVE_KEY", "\"$MANIFESTS_KAKAO_NATIVE_KEY\"")
         resValue("string", "MANIFESTS_KAKAO_NATIVE_KEY", MANIFESTS_KAKAO_NATIVE_KEY)
