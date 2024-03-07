@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -7,12 +9,27 @@ android {
     namespace = "com.woojun.adego"
     compileSdk = 34
 
+    val localProperties = Properties()
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use { localProperties.load(it) }
+    }
+
+    val NATIVE_APP_KEY = localProperties.getProperty("NATIVE_APP_KEY") ?: ""
+    val MANIFESTS_KAKAO_NATIVE_KEY = localProperties.getProperty("MANIFESTS_KAKAO_NATIVE_KEY") ?: ""
+
     defaultConfig {
         applicationId = "com.woojun.adego"
         minSdk = 29
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
+        buildConfigField("String", "NATIVE_APP_KEY", "\"$NATIVE_APP_KEY\"")
+        resValue("string", "NATIVE_APP_KEY", NATIVE_APP_KEY)
+
+        buildConfigField("String", "MANIFESTS_KAKAO_NATIVE_KEY", "\"$MANIFESTS_KAKAO_NATIVE_KEY\"")
+        resValue("string", "MANIFESTS_KAKAO_NATIVE_KEY", MANIFESTS_KAKAO_NATIVE_KEY)
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -35,6 +52,9 @@ android {
     }
     viewBinding {
         enable = true
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 
