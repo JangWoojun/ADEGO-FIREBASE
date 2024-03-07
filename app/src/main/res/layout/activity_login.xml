@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/medium"
-                    android:text="카카오인 로그인"
+                    android:text="카카오로 로그인"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
