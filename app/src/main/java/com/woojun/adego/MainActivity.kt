@@ -1,9 +1,13 @@
 package com.woojun.adego
 
+import android.app.Activity
 import android.content.res.Resources
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.view.WindowCompat
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -25,6 +29,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        this@MainActivity.setStatusBarTransparent()
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -48,5 +54,18 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             .position(marker)
             .title("세명컴퓨터고등학교"))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker, 18.0F))
+    }
+
+    private fun Activity.setStatusBarTransparent() {
+        window.apply {
+            setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            )
+        }
+        if(Build.VERSION.SDK_INT >= 30) {
+            WindowCompat.setDecorFitsSystemWindows(window, false)
+        }
+
     }
 }
