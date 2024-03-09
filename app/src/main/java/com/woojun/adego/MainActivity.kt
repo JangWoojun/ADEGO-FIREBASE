@@ -1,6 +1,7 @@
 package com.woojun.adego
 
 import android.app.Activity
+import android.content.Intent
 import android.content.res.Resources
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mMap: GoogleMap
 
+    private var isPromise = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -31,6 +34,30 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         this@MainActivity.setStatusBarTransparent()
+
+        binding.settingButton.setOnClickListener {
+            startActivity(Intent(this@MainActivity, SettingActivity::class.java))
+        }
+
+        binding.nextButton.setOnClickListener {
+            if (isPromise) {
+                startActivity(Intent(this@MainActivity, PromiseActivity::class.java))
+            } else {
+                startActivity(Intent(this@MainActivity, AlarmActivity::class.java))
+            }
+        }
+
+        binding.sharedButton.setOnClickListener {
+            startActivity(
+                Intent(Intent.ACTION_SEND_MULTIPLE).apply {
+                    type = "text/plain"
+                    val url = ""
+                    val content = "약속에 초대됐어요!\n하단 링크를 통해 어떤 약속인지 확인하세요."
+                    putExtra(Intent.EXTRA_TEXT,"$content\n\n$url")
+                }
+            )
+        }
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
