@@ -16,6 +16,9 @@
         android:theme="@style/Theme.ADEGO"
         tools:targetApi="31">
         <activity
+            android:name=".promise.InviteActivity"
+            android:exported="false" />
+        <activity
             android:name=".promise.PromiseFinishActivity"
             android:exported="false" />
         <activity
