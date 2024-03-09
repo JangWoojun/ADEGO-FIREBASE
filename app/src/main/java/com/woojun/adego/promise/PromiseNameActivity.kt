@@ -1,11 +1,12 @@
-package com.woojun.adego
+package com.woojun.adego.promise
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.woojun.adego.R
 
-class PromiseActivity : AppCompatActivity() {
+class PromiseNameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_promise)
+        setContentView(R.layout.activity_promise_name)
     }
 }

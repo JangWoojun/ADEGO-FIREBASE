@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -19,7 +19,7 @@
             android:name=".AlarmActivity"
             android:exported="false" />
         <activity
-            android:name=".PromiseActivity"
+            android:name=".promise.PromiseNameActivity"
             android:exported="false" />
         <activity
             android:name=".SettingActivity"
@@ -37,7 +37,7 @@
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,7 +52,7 @@
             android:exported="true" />
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
