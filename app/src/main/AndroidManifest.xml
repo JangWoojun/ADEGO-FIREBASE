@@ -16,6 +16,12 @@
         android:theme="@style/Theme.ADEGO"
         tools:targetApi="31">
         <activity
+            android:name=".AlarmActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PromiseActivity"
+            android:exported="false" />
+        <activity
             android:name=".SettingActivity"
             android:exported="false" />
 
