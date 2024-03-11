@@ -1,13 +1,18 @@
 package com.woojun.adego
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.content.res.Resources
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.core.view.WindowCompat
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -17,6 +22,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.woojun.adego.databinding.ActivityMainBinding
+import com.woojun.adego.promise.PromiseNameActivity
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMainBinding
@@ -41,7 +47,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         binding.nextButton.setOnClickListener {
             if (isPromise) {
-                startActivity(Intent(this@MainActivity, PromiseActivity::class.java))
+                startActivity(Intent(this@MainActivity, PromiseNameActivity::class.java))
             } else {
                 startActivity(Intent(this@MainActivity, AlarmActivity::class.java))
             }
