@@ -14,11 +14,19 @@ import com.woojun.adego.databinding.ActivityProfileNameBinding
 
 class ProfileNameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileNameBinding
+    private var isSignUp: Boolean = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         overridePendingTransition(R.anim.anim_slide_in_from_right_fade_in, R.anim.anim_fade_out)
         binding = ActivityProfileNameBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        isSignUp = intent.getBooleanExtra("isSignUp", true)
+
+        if (!isSignUp) {
+            binding.textView.text = "이름 수정"
+            binding.mainButtonText.text = "수정하기"
+        }
 
         binding.backButton.setOnClickListener {
             finish()
@@ -59,8 +67,12 @@ class ProfileNameActivity : AppCompatActivity() {
 
         binding.nextButton.setOnClickListener {
             AppPreferences.nickname = binding.nameInput.text.toString()
-            val intent = Intent(this@ProfileNameActivity, ProfileImageActivity::class.java)
-            startActivity(intent)
+            if (!isSignUp) {
+                finish()
+            } else {
+                val intent = Intent(this@ProfileNameActivity, ProfileImageActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 

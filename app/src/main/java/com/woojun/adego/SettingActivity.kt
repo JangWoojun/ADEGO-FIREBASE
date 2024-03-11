@@ -74,6 +74,16 @@ class SettingActivity : AppCompatActivity() {
             customDialog.show()
         }
 
+        binding.changeNicknameButton.paintFlags = binding.changeNicknameButton.paintFlags or Paint.UNDERLINE_TEXT_FLAG;
+        binding.changeNicknameButton.setOnClickListener {
+            startActivity(
+                Intent(this@SettingActivity, ProfileNameActivity::class.java).apply {
+                    putExtra("isSignUp", false)
+                }
+            )
+        }
+
+        binding.changeImageButton.paintFlags = binding.changeImageButton.paintFlags or Paint.UNDERLINE_TEXT_FLAG;
         binding.changeImageButton.setOnClickListener {
             getContent.launch("image/*")
         }

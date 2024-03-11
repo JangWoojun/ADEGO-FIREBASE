@@ -82,7 +82,11 @@ class LoginActivity : AppCompatActivity() {
                 AppPreferences.isSignIn = true
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
             } else {
-                startActivity(Intent(this@LoginActivity, ProfileNameActivity::class.java))
+                startActivity(
+                    Intent(this@LoginActivity, ProfileNameActivity::class.java).apply {
+                        putExtra("isSignUp", true)
+                    }
+                )
             }
         }.addOnFailureListener {
             Toast.makeText(context, "카카오 로그인에 실패하였습니다", Toast.LENGTH_SHORT).show()
