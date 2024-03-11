@@ -1,18 +1,14 @@
 package com.woojun.adego
 
 import android.app.Activity
-import android.app.Dialog
 import android.content.Intent
 import android.content.res.Resources
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Window
+import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.core.view.WindowCompat
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -41,28 +37,34 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         this@MainActivity.setStatusBarTransparent()
 
-        binding.settingButton.setOnClickListener {
-            startActivity(Intent(this@MainActivity, SettingActivity::class.java))
-        }
-
-        binding.nextButton.setOnClickListener {
-            if (isPromise) {
-                startActivity(Intent(this@MainActivity, PromiseNameActivity::class.java))
-            } else {
-                startActivity(Intent(this@MainActivity, AlarmActivity::class.java))
+        binding.settingButton.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(v: View?) {
+                startActivity(Intent(this@MainActivity, SettingActivity::class.java))
             }
-        }
+        })
 
-        binding.sharedButton.setOnClickListener {
-            startActivity(
-                Intent(Intent.ACTION_SEND_MULTIPLE).apply {
-                    type = "text/plain"
-                    val url = ""
-                    val content = "약속에 초대됐어요!\n하단 링크를 통해 어떤 약속인지 확인하세요."
-                    putExtra(Intent.EXTRA_TEXT,"$content\n\n$url")
+        binding.nextButton.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(v: View?) {
+                if (isPromise) {
+                    startActivity(Intent(this@MainActivity, PromiseNameActivity::class.java))
+                } else {
+                    startActivity(Intent(this@MainActivity, AlarmActivity::class.java))
                 }
-            )
-        }
+            }
+        })
+
+        binding.sharedButton.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(v: View?) {
+                startActivity(
+                    Intent(Intent.ACTION_SEND_MULTIPLE).apply {
+                        type = "text/plain"
+                        val url = ""
+                        val content = "약속에 초대됐어요!\n하단 링크를 통해 어떤 약속인지 확인하세요."
+                        putExtra(Intent.EXTRA_TEXT,"$content\n\n$url")
+                    }
+                )
+            }
+        })
 
     }
 
