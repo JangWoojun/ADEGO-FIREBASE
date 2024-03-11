@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:gravity="center||start"
+        android:gravity="center|start"
         android:id="@+id/textView"
         android:lineHeight="40dp"
         android:layout_width="wrap_content"
