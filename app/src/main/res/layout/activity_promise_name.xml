@@ -53,12 +53,12 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:fontFamily="@font/regular"
-            android:text="약속 이름 (0/8)"
+            android:text="약속 이름 (0/12)"
             android:textColor="@color/gray50"
             android:textSize="14sp" />
 
         <EditText
-            android:maxLength="8"
+            android:maxLength="12"
             android:maxLines="1"
             android:imeOptions="actionDone"
             android:singleLine="true"
