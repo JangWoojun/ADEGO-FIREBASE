@@ -20,4 +20,10 @@
     </style>
 
     <style name="Theme.ADEGO" parent="Base.Theme.ADEGO" />
+
+    <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/gray60</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>
