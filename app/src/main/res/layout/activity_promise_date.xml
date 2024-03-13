@@ -40,13 +40,14 @@
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:id="@+id/calendarView"
+        app:mcv_weekDayTextAppearance="@style/CalenderViewWeekCustomText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:mcv_selectionColor="@color/gray30"
         app:mcv_firstDayOfWeek="monday"
-        style="@style/CalendarWidgetHeader"
-        app:mcv_headerTextAppearance="@color/white"
+        app:mcv_leftArrow="@drawable/calendar_left"
+        app:mcv_rightArrow="@drawable/calendar_right"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
