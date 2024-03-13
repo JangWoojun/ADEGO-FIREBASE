@@ -2,6 +2,7 @@ package com.woojun.adego.promise
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.woojun.adego.R
 import com.woojun.adego.databinding.ActivityPromiseDateBinding
@@ -15,6 +16,8 @@ class PromiseDateActivity : AppCompatActivity() {
         binding = ActivityPromiseDateBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val name = intent.getStringExtra("name")
+
         binding.backButton.setOnClickListener {
             overridePendingTransition(R.anim.anim_slide_in_from_left_fade_in, R.anim.anim_fade_out)
             finish()
@@ -25,6 +28,7 @@ class PromiseDateActivity : AppCompatActivity() {
         binding.calendarView.setOnDateChangedListener { _, date, _ ->
             startActivity(Intent(this@PromiseDateActivity, PromiseTimeActivity::class.java).apply {
                 this.putExtra("date", date.date.toString())
+                this.putExtra("name", name)
             })
         }
 
