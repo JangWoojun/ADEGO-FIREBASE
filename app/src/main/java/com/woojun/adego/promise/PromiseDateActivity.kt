@@ -15,6 +15,11 @@ class PromiseDateActivity : AppCompatActivity() {
         binding = ActivityPromiseDateBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.backButton.setOnClickListener {
+            overridePendingTransition(R.anim.anim_slide_in_from_left_fade_in, R.anim.anim_fade_out)
+            finish()
+        }
+
         binding.calendarView.addDecorators(PastDateDecorator(this), FutureDateDecorator(this))
 
         binding.calendarView.setOnDateChangedListener { _, date, _ ->
