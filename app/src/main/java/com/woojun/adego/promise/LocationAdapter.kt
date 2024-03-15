@@ -1,20 +1,33 @@
 package com.woojun.adego.promise
 
+import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.woojun.adego.AppPreferences
 import com.woojun.adego.dataClass.Location
+import com.woojun.adego.dataClass.PromiseInfo
 import com.woojun.adego.databinding.LocationItemBinding
 
-class LocationAdapter(private val locationList: MutableList<Location>): RecyclerView.Adapter<LocationAdapter.LocationViewHolder>() {
+
+class LocationAdapter(private val locationList: MutableList<Location>, private val promiseInfo: PromiseInfo): RecyclerView.Adapter<LocationAdapter.LocationViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
         val binding = LocationItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return LocationViewHolder(binding).also { handler->
-            binding.apply {
+            binding.locationBox.setOnClickListener {
+                AppPreferences.promiseName = promiseInfo.name
+                AppPreferences.promiseDate = promiseInfo.date
+                AppPreferences.promiseTime = promiseInfo.time
+                AppPreferences.promiseLocation = locationList[handler.position].location
+                AppPreferences.promiseLongitude = locationList[handler.position].longitude
+                AppPreferences.promiseLatitude = locationList[handler.position].latitude
 
+                binding.root.context.startActivity(Intent(binding.root.context, PromiseFinishActivity::class.java))
+                (binding.root.context as Activity?)?.finishAffinity()
             }
         }
     }

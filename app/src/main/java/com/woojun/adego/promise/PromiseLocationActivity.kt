@@ -3,6 +3,8 @@ package com.woojun.adego.promise
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +12,7 @@ import com.woojun.adego.BuildConfig
 import com.woojun.adego.R
 import com.woojun.adego.dataClass.KakaoLocation
 import com.woojun.adego.dataClass.Location
+import com.woojun.adego.dataClass.PromiseInfo
 import com.woojun.adego.databinding.ActivityPromiseLocationBinding
 import com.woojun.adego.network.RetrofitAPI
 import com.woojun.adego.network.RetrofitClient
@@ -25,6 +28,16 @@ class PromiseLocationActivity : AppCompatActivity() {
         binding = ActivityPromiseLocationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val name = intent.getStringExtra("name")!!
+        val date = intent.getStringExtra("date")!!
+        val time = intent.getStringExtra("time")!!
+
+        val promiseInfo = PromiseInfo(
+            name,
+            date,
+            time
+        )
+
         binding.backButton.setOnClickListener {
             overridePendingTransition(R.anim.anim_slide_in_from_left_fade_in, R.anim.anim_fade_out)
             finish()
@@ -32,12 +45,25 @@ class PromiseLocationActivity : AppCompatActivity() {
 
         binding.nameInput.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                getLocation(this@PromiseLocationActivity, binding.nameInput.text.toString())
+                getLocation(this@PromiseLocationActivity, binding.nameInput.text.toString(), promiseInfo)
                 true
             } else {
                 false
             }
         }
+
+        binding.nameInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                getLocation(this@PromiseLocationActivity, binding.nameInput.text.toString(), promiseInfo)
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+
     }
 
     override fun onBackPressed() {
@@ -45,7 +71,7 @@ class PromiseLocationActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.anim_slide_in_from_left_fade_in, R.anim.anim_fade_out)
     }
 
-    private fun getLocation(context: Context, query: String) {
+    private fun getLocation(context: Context, query: String, promiseInfo: PromiseInfo) {
         val retrofit = RetrofitClient.getInstance("https://dapi.kakao.com/v2/")
         val apiService = retrofit.create(RetrofitAPI::class.java)
         val call = apiService.getLocation("KakaoAK ${BuildConfig.REST_API_KEY}", query)
@@ -53,9 +79,7 @@ class PromiseLocationActivity : AppCompatActivity() {
         call.enqueue(object : Callback<KakaoLocation> {
             override fun onResponse(call: Call<KakaoLocation>, response: Response<KakaoLocation>) {
                 if (response.isSuccessful && response.body() != null) {
-                    setRecyclerView(context, response.body()!!)
-                } else {
-                    Toast.makeText(context, "검색에 실패하였습니다", Toast.LENGTH_SHORT).show()
+                    setRecyclerView(context, response.body()!!, promiseInfo)
                 }
             }
             override fun onFailure(call: Call<KakaoLocation>, t: Throwable) {
@@ -64,7 +88,7 @@ class PromiseLocationActivity : AppCompatActivity() {
         })
     }
 
-    private fun setRecyclerView(context: Context, data: KakaoLocation) {
+    private fun setRecyclerView(context: Context, data: KakaoLocation, promiseInfo: PromiseInfo) {
         val list = data.documents.map {
             Location(
                 it.place_name,
@@ -76,6 +100,6 @@ class PromiseLocationActivity : AppCompatActivity() {
         }.toMutableList()
 
         binding.locationList.layoutManager = LinearLayoutManager(context)
-        binding.locationList.adapter = LocationAdapter(list)
+        binding.locationList.adapter = LocationAdapter(list, promiseInfo)
     }
 }
