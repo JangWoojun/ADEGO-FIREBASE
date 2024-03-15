@@ -46,14 +46,14 @@ class PromiseLocationActivity : AppCompatActivity() {
     private fun getLocation(context: Context, query: String) {
         val retrofit = RetrofitClient.getInstance("https://dapi.kakao.com/v2/")
         val apiService = retrofit.create(RetrofitAPI::class.java)
-        val call = apiService.getLocation(BuildConfig.REST_API_KEY, query)
+        val call = apiService.getLocation("KakaoAK ${BuildConfig.REST_API_KEY}", query)
 
         call.enqueue(object : Callback<KakaoLocation> {
             override fun onResponse(call: Call<KakaoLocation>, response: Response<KakaoLocation>) {
                 if (response.isSuccessful && response.body() != null) {
-                    setRecyclerView(response.body()!!)
+                    setRecyclerView(context, response.body()!!)
                 } else {
-                    Toast.makeText(context, "이미지 설정에 실패하였습니다", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "검색에 실패하였습니다", Toast.LENGTH_SHORT).show()
                 }
             }
             override fun onFailure(call: Call<KakaoLocation>, t: Throwable) {
