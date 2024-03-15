@@ -1,8 +1,10 @@
 package com.woojun.adego
 
+import java.time.Duration
 import android.app.Activity
 import android.content.Intent
 import android.content.res.Resources
+import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,14 +19,17 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
+import com.woojun.adego.dataClass.DateComparison
 import com.woojun.adego.databinding.ActivityMainBinding
 import com.woojun.adego.promise.PromiseNameActivity
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mMap: GoogleMap
-
-    private var isPromise = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,21 +42,65 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         this@MainActivity.setStatusBarTransparent()
 
+        if (AppPreferences.promiseDate != "" && compareDates(AppPreferences.promiseDate) != DateComparison.AFTER) {
+            binding.nameText.text = AppPreferences.promiseName
+            binding.dateText.text = AppPreferences.promiseDate
+            binding.timeText.text = AppPreferences.promiseTime
+            binding.locationText.text = AppPreferences.promiseLocation
+            if (compareTime(AppPreferences.promiseTime) == DateComparison.BEFORE) {
+                binding.nextText.text = calculateTimeDifference("${AppPreferences.promiseDate} ${AppPreferences.promiseTime}")
+                binding.nextText.setTextColor(Color.parseColor("#525264"))
+                binding.nextButton.setCardBackgroundColor(Color.parseColor("#181C22"))
+                binding.nextIcon.visibility = View.GONE
+            } else if (compareTime(AppPreferences.promiseTime) == DateComparison.SAME) {
+                binding.nextText.text = "알림 울리러 가기"
+                binding.nextText.setTextColor(Color.parseColor("#000000"))
+                binding.nextIcon.visibility = View.VISIBLE
+                binding.nextButton.setCardBackgroundColor(Color.parseColor("#F0F0F9"))
+                binding.sharedButton.visibility = View.GONE
+
+                binding.nextButton.setOnClickListener(object : OnSingleClickListener() {
+                    override fun onSingleClick(v: View?) {
+                        startActivity(Intent(this@MainActivity, AlarmActivity::class.java))
+                    }
+                })
+            } else {
+                binding.nextText.text = "약속 생성하기"
+                binding.nextText.setTextColor(Color.parseColor("#000000"))
+                binding.nextIcon.visibility = View.VISIBLE
+                binding.nextButton.setCardBackgroundColor(Color.parseColor("#F0F0F9"))
+                binding.nonePromiseText.visibility = View.VISIBLE
+                binding.promiseBox.visibility = View.GONE
+                binding.sharedButton.visibility = View.GONE
+
+                binding.nextButton.setOnClickListener(object : OnSingleClickListener() {
+                    override fun onSingleClick(v: View?) {
+                        startActivity(Intent(this@MainActivity, PromiseNameActivity::class.java))
+                    }
+                })
+            }
+        } else {
+            binding.nextText.text = "약속 생성하기"
+            binding.nextText.setTextColor(Color.parseColor("#000000"))
+            binding.nextIcon.visibility = View.VISIBLE
+            binding.nextButton.setCardBackgroundColor(Color.parseColor("#F0F0F9"))
+            binding.nonePromiseText.visibility = View.VISIBLE
+            binding.promiseBox.visibility = View.GONE
+            binding.sharedButton.visibility = View.GONE
+
+            binding.nextButton.setOnClickListener(object : OnSingleClickListener() {
+                override fun onSingleClick(v: View?) {
+                    startActivity(Intent(this@MainActivity, PromiseNameActivity::class.java))
+                }
+            })
+        }
+
         binding.settingButton.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View?) {
                 startActivity(Intent(this@MainActivity, SettingActivity::class.java))
             }
         })
 
-        binding.nextButton.setOnClickListener(object : OnSingleClickListener() {
-            override fun onSingleClick(v: View?) {
-                if (isPromise) {
-                    startActivity(Intent(this@MainActivity, PromiseNameActivity::class.java))
-                } else {
-                    startActivity(Intent(this@MainActivity, AlarmActivity::class.java))
-                }
-            }
-        })
 
         binding.sharedButton.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View?) {
@@ -66,6 +115,62 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         })
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (AppPreferences.promiseDate != "" && compareDates(AppPreferences.promiseDate) != DateComparison.AFTER) {
+            binding.nameText.text = AppPreferences.promiseName
+            binding.dateText.text = AppPreferences.promiseDate
+            binding.timeText.text = AppPreferences.promiseTime
+            binding.locationText.text = AppPreferences.promiseLocation
+            if (compareTime(AppPreferences.promiseTime) == DateComparison.BEFORE) {
+                binding.nextText.text = calculateTimeDifference("${AppPreferences.promiseDate} ${AppPreferences.promiseTime}")
+                binding.nextText.setTextColor(Color.parseColor("#525264"))
+                binding.nextButton.setCardBackgroundColor(Color.parseColor("#181C22"))
+                binding.nextIcon.visibility = View.GONE
+            } else if (compareTime(AppPreferences.promiseTime) == DateComparison.SAME) {
+                binding.nextText.text = "알림 울리러 가기"
+                binding.nextText.setTextColor(Color.parseColor("#000000"))
+                binding.nextIcon.visibility = View.VISIBLE
+                binding.nextButton.setCardBackgroundColor(Color.parseColor("#F0F0F9"))
+                binding.sharedButton.visibility = View.GONE
+
+                binding.nextButton.setOnClickListener(object : OnSingleClickListener() {
+                    override fun onSingleClick(v: View?) {
+                        startActivity(Intent(this@MainActivity, AlarmActivity::class.java))
+                    }
+                })
+            } else {
+                binding.nextText.text = "약속 생성하기"
+                binding.nextText.setTextColor(Color.parseColor("#000000"))
+                binding.nextIcon.visibility = View.VISIBLE
+                binding.nextButton.setCardBackgroundColor(Color.parseColor("#F0F0F9"))
+                binding.nonePromiseText.visibility = View.VISIBLE
+                binding.promiseBox.visibility = View.GONE
+                binding.sharedButton.visibility = View.GONE
+
+                binding.nextButton.setOnClickListener(object : OnSingleClickListener() {
+                    override fun onSingleClick(v: View?) {
+                        startActivity(Intent(this@MainActivity, PromiseNameActivity::class.java))
+                    }
+                })
+            }
+        } else {
+            binding.nextText.text = "약속 생성하기"
+            binding.nextText.setTextColor(Color.parseColor("#000000"))
+            binding.nextIcon.visibility = View.VISIBLE
+            binding.nextButton.setCardBackgroundColor(Color.parseColor("#F0F0F9"))
+            binding.nonePromiseText.visibility = View.VISIBLE
+            binding.promiseBox.visibility = View.GONE
+            binding.sharedButton.visibility = View.GONE
+
+            binding.nextButton.setOnClickListener(object : OnSingleClickListener() {
+                override fun onSingleClick(v: View?) {
+                    startActivity(Intent(this@MainActivity, PromiseNameActivity::class.java))
+                }
+            })
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -101,6 +206,59 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         if(Build.VERSION.SDK_INT >= 30) {
             WindowCompat.setDecorFitsSystemWindows(window, false)
         }
+    }
 
+    private fun compareDates(dateString: String): DateComparison {
+        val currentDate = LocalDate.now()
+
+        val formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일")
+        val targetDate = LocalDate.parse(dateString, formatter)
+
+        return when {
+            currentDate.isBefore(targetDate) -> DateComparison.BEFORE
+            currentDate.isEqual(targetDate) -> DateComparison.SAME
+            else -> DateComparison.AFTER
+        }
+    }
+
+
+    private fun compareTime(inputTime: String): DateComparison {
+        val currentTime = LocalTime.now()
+
+        val formatter = DateTimeFormatter.ofPattern("a h시 m분")
+        val targetTime = LocalTime.parse(inputTime, formatter)
+
+        return when {
+            currentTime.isBefore(targetTime.minusMinutes(1)) -> DateComparison.BEFORE
+            currentTime.isAfter(targetTime.plusMinutes(21)) -> DateComparison.AFTER
+            else -> DateComparison.SAME
+        }
+    }
+
+    private fun calculateTimeDifference(targetDateTime: String): String {
+        val currentDateTime = LocalDateTime.now()
+
+        val formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일 H시 m분")
+        val targetDateTimeObj = LocalDateTime.parse(targetDateTime, formatter)
+
+        val duration = Duration.between(currentDateTime, targetDateTimeObj)
+
+        val days = duration.toDays()
+        val hours = duration.toHours() % 24
+        val minutes = duration.toMinutes() % 60
+
+        val result = StringBuilder()
+
+        if (days > 0) result.append("${days}일 ")
+        if (hours > 0) result.append("${hours}시간 ")
+        if (minutes > 0) result.append("${minutes}분")
+
+        if (result.isEmpty()) {
+            result.append("0분")
+        }
+
+        result.append(" 뒤 시작됩니다.")
+
+        return result.toString()
     }
 }
