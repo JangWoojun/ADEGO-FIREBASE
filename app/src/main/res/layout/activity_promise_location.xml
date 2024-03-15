@@ -72,7 +72,7 @@
                 android:fontFamily="@font/regular"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
-                android:maxLength="8"
+                android:maxLength="14"
                 android:maxLines="1"
                 android:paddingBottom="14dp"
                 android:singleLine="true"
