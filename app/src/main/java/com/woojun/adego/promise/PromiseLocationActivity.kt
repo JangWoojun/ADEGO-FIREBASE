@@ -1,9 +1,19 @@
 package com.woojun.adego.promise
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
+import android.widget.Toast
+import com.woojun.adego.BuildConfig
 import com.woojun.adego.R
+import com.woojun.adego.dataClass.KakaoLocation
 import com.woojun.adego.databinding.ActivityPromiseLocationBinding
+import com.woojun.adego.network.RetrofitAPI
+import com.woojun.adego.network.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class PromiseLocationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPromiseLocationBinding
@@ -17,10 +27,42 @@ class PromiseLocationActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.anim_slide_in_from_left_fade_in, R.anim.anim_fade_out)
             finish()
         }
+
+        binding.nameInput.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                getLocation(this@PromiseLocationActivity, binding.nameInput.text.toString())
+                true
+            } else {
+                false
+            }
+        }
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
         overridePendingTransition(R.anim.anim_slide_in_from_left_fade_in, R.anim.anim_fade_out)
+    }
+
+    private fun getLocation(context: Context, query: String) {
+        val retrofit = RetrofitClient.getInstance("https://dapi.kakao.com/v2/")
+        val apiService = retrofit.create(RetrofitAPI::class.java)
+        val call = apiService.getLocation(BuildConfig.REST_API_KEY, query)
+
+        call.enqueue(object : Callback<KakaoLocation> {
+            override fun onResponse(call: Call<KakaoLocation>, response: Response<KakaoLocation>) {
+                if (response.isSuccessful && response.body() != null) {
+                    setRecyclerView(response.body()!!)
+                } else {
+                    Toast.makeText(context, "이미지 설정에 실패하였습니다", Toast.LENGTH_SHORT).show()
+                }
+            }
+            override fun onFailure(call: Call<KakaoLocation>, t: Throwable) {
+                Toast.makeText(context, "검색에 실패하였습니다", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun setRecyclerView(data: KakaoLocation) {
+
     }
 }
