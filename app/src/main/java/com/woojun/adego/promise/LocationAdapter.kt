@@ -1,6 +1,7 @@
 package com.woojun.adego.promise
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -30,7 +31,13 @@ class LocationAdapter(private val locationList: MutableList<Location>): Recycler
         ViewHolder(binding.root) {
         fun bind(location: Location) {
             binding.locationName.text = location.location
-            binding.locationDetailsName.text = location.locationDetails
+             if (location.locationDetailsMain != "" ) {
+                binding.locationDetailsName.text = location.locationDetailsMain
+            } else if (location.locationDetailsSub != "") {
+                 binding.locationDetailsName.text = location.locationDetailsSub
+            } else {
+                binding.locationDetailsName.visibility = View.GONE
+            }
         }
     }
 

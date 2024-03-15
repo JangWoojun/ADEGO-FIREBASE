@@ -68,9 +68,10 @@ class PromiseLocationActivity : AppCompatActivity() {
         val list = data.documents.map {
             Location(
                 it.place_name,
-                    it.road_address_name,
-                    it.x,
-                    it.y
+                it.address_name,
+                it.road_address_name,
+                it.x,
+                it.y
             )
         }.toMutableList()
 
