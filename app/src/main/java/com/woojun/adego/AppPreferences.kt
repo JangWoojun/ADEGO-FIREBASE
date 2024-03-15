@@ -17,6 +17,9 @@ object AppPreferences {
     private val PROMISETIME = Pair("promiseTime", "")
     private val PROMISEDATE = Pair("promiseDate", "")
     private val PROMISELOCATION = Pair("promiseLocation", "")
+    private val PROMISELONGITUDE = Pair("promiseLongitude", "")
+    private val PROMISELATIUDE = Pair("promiseLatitude", "")
+
 
     fun init(context: Context) {
         preferences = context.getSharedPreferences(NAME, MODE)
@@ -67,5 +70,15 @@ object AppPreferences {
         get() = preferences.getString(PROMISELOCATION.first, PROMISELOCATION.second) ?: ""
         set(value) = preferences.edit {
             it.putString(PROMISELOCATION.first, value)
+        }
+    var promiseLongitude: String
+        get() = preferences.getString(PROMISELONGITUDE.first, PROMISELONGITUDE.second) ?: ""
+        set(value) = preferences.edit {
+            it.putString(PROMISELONGITUDE.first, value)
+        }
+    var promiseLatitude: String
+        get() = preferences.getString(PROMISELATIUDE.first, PROMISELATIUDE.second) ?: ""
+        set(value) = preferences.edit {
+            it.putString(PROMISELATIUDE.first, value)
         }
 }
