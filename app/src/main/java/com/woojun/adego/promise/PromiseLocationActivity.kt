@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.woojun.adego.BuildConfig
 import com.woojun.adego.R
 import com.woojun.adego.dataClass.KakaoLocation
+import com.woojun.adego.dataClass.Location
 import com.woojun.adego.databinding.ActivityPromiseLocationBinding
 import com.woojun.adego.network.RetrofitAPI
 import com.woojun.adego.network.RetrofitClient
@@ -62,7 +64,17 @@ class PromiseLocationActivity : AppCompatActivity() {
         })
     }
 
-    private fun setRecyclerView(data: KakaoLocation) {
+    private fun setRecyclerView(context: Context, data: KakaoLocation) {
+        val list = data.documents.map {
+            Location(
+                it.place_name,
+                    it.road_address_name,
+                    it.x,
+                    it.y
+            )
+        }.toMutableList()
 
+        binding.locationList.layoutManager = LinearLayoutManager(context)
+        binding.locationList.adapter = LocationAdapter(list)
     }
 }
