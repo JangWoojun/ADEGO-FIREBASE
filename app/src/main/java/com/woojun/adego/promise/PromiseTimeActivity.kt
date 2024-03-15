@@ -25,7 +25,7 @@ class PromiseTimeActivity : AppCompatActivity() {
         }
 
         binding.dateText.text = if (date != null) {
-            "${convertDateFormat(date.toString())}"
+            "$date"
         } else {
             "날짜 오류"
         }
@@ -34,7 +34,7 @@ class PromiseTimeActivity : AppCompatActivity() {
             startActivity(Intent(this@PromiseTimeActivity, PromiseLocationActivity::class.java).apply {
                 this.putExtra("name", name)
                 this.putExtra("date", date)
-                this.putExtra("time", "${binding.timeView.hour} ${binding.timeView.minute}")
+                this.putExtra("time", convertTextToTime("${binding.timeView.hour} ${binding.timeView.minute}"))
             })
         }
 
@@ -45,11 +45,27 @@ class PromiseTimeActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.anim_slide_in_from_left_fade_in, R.anim.anim_fade_out)
     }
 
-    private fun convertDateFormat(inputDate: String, inputFormat: String = "yyyy-MM-dd", outputFormat: String = "yyyy년 M월 d일"): String {
-        val formatter = DateTimeFormatter.ofPattern(inputFormat)
-        val date = LocalDate.parse(inputDate, formatter)
 
-        val outputFormatter = DateTimeFormatter.ofPattern(outputFormat)
-        return date.format(outputFormatter)
+    private fun convertTextToTime(inputText: String): String {
+        val regex = "\\b(\\d{1,2}) (\\d{1,2})\\b".toRegex()
+        val matchResult = regex.find(inputText)
+
+        matchResult?.let {
+            val (hour, minute) = it.destructured
+            val hourInt = hour.toInt()
+            val minuteInt = minute.toInt()
+
+            val hourString = if (hourInt > 12) {
+                "오후 ${hourInt - 12}시"
+            } else {
+                "오전 ${hourInt}시"
+            }
+
+            val minuteString = "${minuteInt}분"
+
+            return "$hourString $minuteString"
+        }
+
+        return inputText
     }
 }

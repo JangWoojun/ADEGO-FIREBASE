@@ -6,6 +6,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.woojun.adego.R
 import com.woojun.adego.databinding.ActivityPromiseDateBinding
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.regex.Pattern
 
 
 class PromiseDateActivity : AppCompatActivity() {
@@ -27,7 +30,7 @@ class PromiseDateActivity : AppCompatActivity() {
 
         binding.calendarView.setOnDateChangedListener { _, date, _ ->
             startActivity(Intent(this@PromiseDateActivity, PromiseTimeActivity::class.java).apply {
-                this.putExtra("date", date.date.toString())
+                this.putExtra("date", convertDateFormat(date.date.toString()))
                 this.putExtra("name", name)
             })
         }
@@ -48,5 +51,13 @@ class PromiseDateActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         overridePendingTransition(R.anim.anim_slide_in_from_left_fade_in, R.anim.anim_fade_out)
+    }
+
+    private fun convertDateFormat(inputDate: String, inputFormat: String = "yyyy-MM-dd", outputFormat: String = "yyyy년 M월 d일"): String {
+        val formatter = DateTimeFormatter.ofPattern(inputFormat)
+        val date = LocalDate.parse(inputDate, formatter)
+
+        val outputFormatter = DateTimeFormatter.ofPattern(outputFormat)
+        return date.format(outputFormatter)
     }
 }
