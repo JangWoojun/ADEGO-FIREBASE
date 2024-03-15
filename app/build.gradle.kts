@@ -20,6 +20,7 @@ android {
     val KAKAO_NATIVE_KEY = localProperties.getProperty("KAKAO_NATIVE_KEY") ?: ""
     val MANIFESTS_KAKAO_NATIVE_KEY = localProperties.getProperty("MANIFESTS_KAKAO_NATIVE_KEY") ?: ""
     val MAPS_API_KEY = localProperties.getProperty("MAPS_API_KEY") ?: ""
+    val REST_API_KEY = localProperties.getProperty("REST_API_KEY") ?: ""
 
     defaultConfig {
         applicationId = "com.woojun.adego"
@@ -36,6 +37,9 @@ android {
 
         buildConfigField("String", "MAPS_API_KEY", "\"$MAPS_API_KEY\"")
         resValue("string", "MAPS_API_KEY", MAPS_API_KEY)
+
+        buildConfigField("String", "REST_API_KEY", "\"$REST_API_KEY\"")
+        resValue("string", "REST_API_KEY", REST_API_KEY)
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -91,4 +95,5 @@ dependencies {
 
     implementation("com.jakewharton.threetenabp:threetenabp:1.3.1")
 
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 }
