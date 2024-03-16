@@ -79,6 +79,13 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                         startActivity(Intent(this@MainActivity, PromiseNameActivity::class.java))
                     }
                 })
+
+                AppPreferences.promiseName = ""
+                AppPreferences.promiseDate = ""
+                AppPreferences.promiseTime = ""
+                AppPreferences.promiseLocation = ""
+                AppPreferences.promiseLongitude = ""
+                AppPreferences.promiseLatitude = ""
             }
         } else {
             binding.nextText.text = "약속 생성하기"
@@ -198,7 +205,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             )
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker, 18.0F))
         } else {
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(37.570454631, 126.992134289), 17.0F))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(37.570454631, 126.992134289), 16.0F))
         }
     }
 
