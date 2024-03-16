@@ -16,6 +16,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
@@ -188,12 +189,17 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             Toast.makeText(this@MainActivity, "지도 불러오기 실패 다시 시도해주세요", Toast.LENGTH_SHORT).show()
         }
 
-        val marker = LatLng(37.62759321424639, 126.92311223239273)
-        mMap.addMarker(
-            MarkerOptions()
-            .position(marker)
-            .title("세명컴퓨터고등학교"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker, 18.0F))
+        if (AppPreferences.promiseLatitude != "") {
+            val marker = LatLng(AppPreferences.promiseLatitude.toDouble(), AppPreferences.promiseLongitude.toDouble())
+            mMap.addMarker(
+                MarkerOptions()
+                    .position(marker)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
+            )
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker, 18.0F))
+        } else {
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(37.570454631, 126.992134289), 17.0F))
+        }
     }
 
     private fun Activity.setStatusBarTransparent() {
