@@ -1,5 +1,6 @@
 # ADEGO
 > 어데고
+![Frame 1](https://github.com/JangWoojun/ADEGO/assets/102157871/3851e476-1fbb-445b-8dfc-23cc3767ee31)
 
 ## 프로젝트 소개
 
