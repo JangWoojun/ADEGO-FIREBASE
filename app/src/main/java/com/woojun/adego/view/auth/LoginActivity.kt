@@ -1,4 +1,4 @@
-package com.woojun.adego
+package com.woojun.adego.view.auth
 
 import android.content.Context
 import android.content.Intent
@@ -14,7 +14,7 @@ import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import com.woojun.adego.database.AppPreferences
 import com.woojun.adego.databinding.ActivityLoginBinding
-import com.woojun.adego.profile.ProfileNameActivity
+import com.woojun.adego.view.main.MainActivity
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding

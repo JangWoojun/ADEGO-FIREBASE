@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".GlobalApplication"
+        android:name=".util.GlobalApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -16,28 +16,28 @@
         android:theme="@style/Theme.ADEGO"
         tools:targetApi="31">
         <activity
-            android:name=".promise.InviteActivity"
+            android:name=".view.promise.InviteActivity"
             android:exported="false" />
         <activity
-            android:name=".promise.PromiseFinishActivity"
+            android:name=".view.promise.PromiseFinishActivity"
             android:exported="false" />
         <activity
-            android:name=".promise.PromiseLocationActivity"
+            android:name=".view.promise.PromiseLocationActivity"
             android:exported="false" />
         <activity
-            android:name=".promise.PromiseTimeActivity"
+            android:name=".view.promise.PromiseTimeActivity"
             android:exported="false" />
         <activity
-            android:name=".promise.PromiseDateActivity"
+            android:name=".view.promise.PromiseDateActivity"
             android:exported="false" />
         <activity
-            android:name=".AlarmActivity"
+            android:name=".view.alarm.AlarmActivity"
             android:exported="false" />
         <activity
-            android:name=".promise.PromiseNameActivity"
+            android:name=".view.promise.PromiseNameActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingActivity"
+            android:name=".view.main.SettingActivity"
             android:exported="false" />
 
         <meta-data
@@ -45,13 +45,13 @@
             android:value="@string/MAPS_API_KEY" />
 
         <activity
-            android:name=".profile.ProfileImageActivity"
+            android:name=".view.auth.ProfileImageActivity"
             android:exported="false" />
         <activity
-            android:name=".profile.ProfileNameActivity"
+            android:name=".view.auth.ProfileNameActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".view.main.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -60,10 +60,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.auth.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.main.MainActivity"
             android:exported="true" />
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"

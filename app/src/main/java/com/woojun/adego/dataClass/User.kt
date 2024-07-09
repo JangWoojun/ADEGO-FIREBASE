@@ -1,4 +1,4 @@
-package com.woojun.adego
+package com.woojun.adego.dataClass
 
 data class User(
     var nickname: String,

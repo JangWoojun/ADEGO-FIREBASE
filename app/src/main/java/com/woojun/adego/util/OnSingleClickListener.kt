@@ -1,4 +1,4 @@
-package com.woojun.adego
+package com.woojun.adego.util
 
 import android.os.SystemClock
 import android.view.View

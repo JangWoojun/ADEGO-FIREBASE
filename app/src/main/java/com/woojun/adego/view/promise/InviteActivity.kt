@@ -1,4 +1,4 @@
-package com.woojun.adego.promise
+package com.woojun.adego.view.promise
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

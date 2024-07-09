@@ -1,12 +1,12 @@
-package com.woojun.adego.promise
+package com.woojun.adego.view.promise
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.woojun.adego.database.AppPreferences
-import com.woojun.adego.MainActivity
-import com.woojun.adego.OnSingleClickListener
+import com.woojun.adego.view.main.MainActivity
+import com.woojun.adego.util.OnSingleClickListener
 import com.woojun.adego.R
 import com.woojun.adego.databinding.ActivityPromiseFinishBinding
 

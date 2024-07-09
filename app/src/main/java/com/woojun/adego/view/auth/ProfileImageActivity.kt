@@ -1,4 +1,4 @@
-package com.woojun.adego.profile
+package com.woojun.adego.view.auth
 
 import android.content.Intent
 import android.graphics.Paint
@@ -15,9 +15,9 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.woojun.adego.database.AppPreferences
-import com.woojun.adego.MainActivity
+import com.woojun.adego.view.main.MainActivity
 import com.woojun.adego.R
-import com.woojun.adego.User
+import com.woojun.adego.dataClass.User
 import com.woojun.adego.databinding.ActivityProfileImageBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

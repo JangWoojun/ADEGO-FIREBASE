@@ -1,9 +1,10 @@
-package com.woojun.adego
+package com.woojun.adego.view.alarm
 
 import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
+import com.woojun.adego.dataClass.User
 import com.woojun.adego.databinding.ActivityAlarmBinding
 
 class AlarmActivity : AppCompatActivity() {

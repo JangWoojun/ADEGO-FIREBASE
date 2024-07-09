@@ -1,4 +1,4 @@
-package com.woojun.adego
+package com.woojun.adego.view.main
 
 import java.time.Duration
 import android.app.Activity
@@ -20,10 +20,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
+import com.woojun.adego.view.alarm.AlarmActivity
+import com.woojun.adego.util.OnSingleClickListener
+import com.woojun.adego.R
 import com.woojun.adego.dataClass.DateComparison
 import com.woojun.adego.database.AppPreferences
 import com.woojun.adego.databinding.ActivityMainBinding
-import com.woojun.adego.promise.PromiseNameActivity
+import com.woojun.adego.view.promise.PromiseNameActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

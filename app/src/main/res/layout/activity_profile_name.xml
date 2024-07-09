@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray10"
-    tools:context=".profile.ProfileNameActivity">
+    tools:context=".view.auth.ProfileNameActivity">
 
     <LinearLayout
         android:layout_marginTop="13dp"

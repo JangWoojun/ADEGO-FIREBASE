@@ -1,4 +1,4 @@
-package com.woojun.adego.profile
+package com.woojun.adego.view.auth
 
 import android.content.Intent
 import android.os.Bundle

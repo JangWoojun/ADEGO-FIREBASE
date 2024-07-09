@@ -1,4 +1,4 @@
-package com.woojun.adego
+package com.woojun.adego.view.alarm
 
 import android.graphics.Rect
 import android.view.View

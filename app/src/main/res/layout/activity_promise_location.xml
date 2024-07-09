@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/gray10"
     android:scrollbars="none"
-    tools:context=".promise.PromiseLocationActivity">
+    tools:context=".view.promise.PromiseLocationActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@color/gray10"

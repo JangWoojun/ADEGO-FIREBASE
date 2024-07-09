@@ -1,4 +1,4 @@
-package com.woojun.adego
+package com.woojun.adego.view.alarm
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.woojun.adego.dataClass.User
 import com.woojun.adego.databinding.AlarmItemBinding
 
 class AlarmAdapter(private val alarmList: MutableList<User>): RecyclerView.Adapter<AlarmAdapter.HiddenViewHolder>() {
