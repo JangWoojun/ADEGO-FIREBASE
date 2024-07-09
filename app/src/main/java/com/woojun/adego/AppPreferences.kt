@@ -11,7 +11,6 @@ object AppPreferences {
     private val ID = Pair("id", "")
     private val NICKNAME = Pair("nickname", "")
     private val PROFILEImage = Pair("profile", "")
-    private val ISSIGNIN = Pair("isSignIn", false)
 
     private val PROMISENAME = Pair("promiseName", "")
     private val PROMISETIME = Pair("promiseTime", "")
@@ -19,6 +18,10 @@ object AppPreferences {
     private val PROMISELOCATION = Pair("promiseLocation", "")
     private val PROMISELONGITUDE = Pair("promiseLongitude", "")
     private val PROMISELATIUDE = Pair("promiseLatitude", "")
+
+    private val ACCESS_TOKEN = Pair("accessToken", "")
+    private val REFRESH_TOKEN = Pair("refreshToken", "")
+    private val ISSIGNIN = Pair("isSignIn", false)
 
 
     fun init(context: Context) {
@@ -46,11 +49,7 @@ object AppPreferences {
         set(value) = preferences.edit {
             it.putString(PROFILEImage.first, value)
         }
-    var isSignIn: Boolean
-        get() = preferences.getBoolean(ISSIGNIN.first, ISSIGNIN.second)
-        set(value) = preferences.edit {
-            it.putBoolean(ISSIGNIN.first, value)
-        }
+
     var promiseName: String
         get() = preferences.getString(PROMISENAME.first, PROMISENAME.second) ?: ""
         set(value) = preferences.edit {
@@ -80,5 +79,21 @@ object AppPreferences {
         get() = preferences.getString(PROMISELATIUDE.first, PROMISELATIUDE.second) ?: ""
         set(value) = preferences.edit {
             it.putString(PROMISELATIUDE.first, value)
+        }
+
+    var isSignIn: Boolean
+        get() = preferences.getBoolean(ISSIGNIN.first, ISSIGNIN.second)
+        set(value) = preferences.edit {
+            it.putBoolean(ISSIGNIN.first, value)
+        }
+    var accessToken: String
+        get() = preferences.getString(ACCESS_TOKEN.first, ACCESS_TOKEN.second) ?: ""
+        set(value) = preferences.edit {
+            it.putString(ACCESS_TOKEN.first, value)
+        }
+    var refreshToken: String
+        get() = preferences.getString(REFRESH_TOKEN.first, REFRESH_TOKEN.second) ?: ""
+        set(value) = preferences.edit {
+            it.putString(REFRESH_TOKEN.first, value)
         }
 }
