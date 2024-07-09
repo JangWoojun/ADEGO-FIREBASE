@@ -21,6 +21,7 @@ android {
     val MANIFESTS_KAKAO_NATIVE_KEY = localProperties.getProperty("MANIFESTS_KAKAO_NATIVE_KEY") ?: ""
     val MAPS_API_KEY = localProperties.getProperty("MAPS_API_KEY") ?: ""
     val REST_API_KEY = localProperties.getProperty("REST_API_KEY") ?: ""
+    val BASE_URL = localProperties.getProperty("BASE_URL") ?: ""
 
     defaultConfig {
         applicationId = "com.woojun.adego"
@@ -40,6 +41,9 @@ android {
 
         buildConfigField("String", "REST_API_KEY", "\"$REST_API_KEY\"")
         resValue("string", "REST_API_KEY", REST_API_KEY)
+
+        buildConfigField("String", "BASE_URL", "\"$BASE_URL\"")
+        resValue("string", "BASE_URL", BASE_URL)
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
