@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.woojun.adego.AppPreferences
+import com.woojun.adego.database.AppPreferences
 import com.woojun.adego.dataClass.Location
 import com.woojun.adego.dataClass.PromiseInfo
 import com.woojun.adego.databinding.LocationItemBinding

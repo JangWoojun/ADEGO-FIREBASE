@@ -1,4 +1,4 @@
-package com.woojun.adego
+package com.woojun.adego.database
 
 import android.content.Context
 import android.content.SharedPreferences

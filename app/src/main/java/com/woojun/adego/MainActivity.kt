@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.woojun.adego.dataClass.DateComparison
+import com.woojun.adego.database.AppPreferences
 import com.woojun.adego.databinding.ActivityMainBinding
 import com.woojun.adego.promise.PromiseNameActivity
 import java.time.LocalDate

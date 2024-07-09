@@ -13,6 +13,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import com.woojun.adego.database.AppPreferences
 import com.woojun.adego.databinding.ActivitySettingBinding
 import com.woojun.adego.profile.ProfileNameActivity
 

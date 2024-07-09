@@ -14,7 +14,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import com.woojun.adego.AppPreferences
+import com.woojun.adego.database.AppPreferences
 import com.woojun.adego.MainActivity
 import com.woojun.adego.R
 import com.woojun.adego.User

@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.woojun.adego.AppPreferences
+import com.woojun.adego.database.AppPreferences
 import com.woojun.adego.MainActivity
 import com.woojun.adego.OnSingleClickListener
 import com.woojun.adego.R

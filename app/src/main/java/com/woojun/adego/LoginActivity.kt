@@ -12,6 +12,7 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
+import com.woojun.adego.database.AppPreferences
 import com.woojun.adego.databinding.ActivityLoginBinding
 import com.woojun.adego.profile.ProfileNameActivity
 

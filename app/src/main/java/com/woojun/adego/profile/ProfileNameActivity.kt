@@ -8,7 +8,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import com.woojun.adego.AppPreferences
+import com.woojun.adego.database.AppPreferences
 import com.woojun.adego.R
 import com.woojun.adego.databinding.ActivityProfileNameBinding
 
