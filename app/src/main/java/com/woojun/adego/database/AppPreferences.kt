@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 
 object AppPreferences {
-    private const val NAME = "AppPreferences"
+    private const val NAME = "ADEGO"
     private const val MODE = Context.MODE_PRIVATE
     private lateinit var preferences: SharedPreferences
 
